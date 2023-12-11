@@ -26,7 +26,10 @@ const Layanan = () => {
               Daftarkan diri anda segera
             </div>
             <div className="pt-7">
-              <button onClick={() => navigate("/daftar")} className="bg-blue-600 font-semibold text-white w-[190px] h-[35px]  rounded-lg">
+              <button
+                onClick={() => navigate("/daftar")}
+                className="bg-blue-600 font-semibold text-white w-[190px] h-[35px]  rounded-lg"
+              >
                 Daftar
               </button>
             </div>
@@ -89,7 +92,14 @@ const Layanan = () => {
             <div className="flex flex-col justify-center items-center">
               <img src={p9} className="w-[300px] h-[440px]" alt="" />
               <div className="pt-7">
-                <button onClick={()=> navigate("/koleksi/pendidikan/Buku-Siswa-Ekonomi-Kelas-XI-SMA")} className="bg-white font-semibold  w-[140px] h-[35px]  rounded-lg">
+                <button
+                  onClick={() =>
+                    navigate(
+                      "/koleksi/pendidikan/Buku-Siswa-Ekonomi-Kelas-XI-SMA"
+                    )
+                  }
+                  className="bg-white font-semibold  w-[140px] h-[35px]  rounded-lg"
+                >
                   Lihat
                 </button>
               </div>

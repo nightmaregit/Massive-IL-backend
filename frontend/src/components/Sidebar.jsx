@@ -4,7 +4,6 @@ import {
   HeartIcon,
   HomeIcon,
   LeaveIcon,
- 
   StudentIcon,
 } from "../assets/icons";
 import Logo from "../assets/logo-bright.png";
@@ -18,12 +17,6 @@ const Peminjaman = () => {
   console.log(muncul);
 
   const items = [
-    {
-      id: 1,
-      title: "Dashboard",
-      url: "/profil",
-      icon: <HomeIcon />,
-    },
     {
       id: 2,
       title: "Profil",

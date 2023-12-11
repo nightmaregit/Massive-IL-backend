@@ -22,6 +22,12 @@ import Koleksi_pinjaman from "./pages/Koleksi_pinjaman";
 import Favorit from "./pages/Favorit";
 import TambahBuku from "./admin/TambahBuku";
 import EditBuku from "./admin/EditBuku";
+import PeminjamanBuku from "./admin/PeminjamanBuku";
+import PengembalianBuku from "./admin/PengembalianBuku";
+import DataAnggota from "./admin/DataAnggota";
+import EditAkunAdmin from "./admin/EditAkunAdmin";
+import Administrator from "./admin/Administrator";
+
 // import Buku_cerpen from './pages/Buku_cerpen'
 // import Buku_komik from './pages/Buku_komik'
 function App() {
@@ -64,8 +70,25 @@ function App() {
         <Route path="/koleksi/komik" element={<Buku_komik />}></Route> */}
         <Route path="/admin/dashboard" element={<DashboardAdmin />}></Route>
         <Route path="/admin/databuku" element={<DataBukuAdmin />}></Route>
-        <Route path="/admin/databuku/tambahbuku" element={<TambahBuku />}></Route>
+        <Route
+          path="/admin/databuku/tambahbuku"
+          element={<TambahBuku />}
+        ></Route>
         <Route path="/admin/databuku/editbuku" element={<EditBuku />}></Route>
+        <Route
+          path="/admin/peminjaman-buku"
+          element={<PeminjamanBuku />}
+        ></Route>
+        <Route
+          path="/admin/pengembalian-buku"
+          element={<PengembalianBuku />}
+        ></Route>
+        <Route path="/admin/data-anggota" element={<DataAnggota />}></Route>
+        <Route
+          path="/admin/edit-akun-admin"
+          element={<EditAkunAdmin />}
+        ></Route>
+        <Route path="/admin/administrator" element={<Administrator />}></Route>
       </Routes>
     </Router>
   );
