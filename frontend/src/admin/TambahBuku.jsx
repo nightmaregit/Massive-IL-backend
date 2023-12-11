@@ -44,7 +44,7 @@ function TambahBuku() {
       <Sidebar_admin />
 
       <div className="flex flex-col w-screen">
-        <div className="mb-10 h-16 flex justify-end">
+        <div className="mb-2 h-16 flex justify-end">
           <div className="text-black flex items-center pr-5 gap-[30px]">
             <div>
               <h1 className="font-semibold text-sm leading-normal">Betty</h1>
