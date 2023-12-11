@@ -73,12 +73,12 @@ function DataBukuAdmin() {
           <table className=" p-2 border border-solid border-collapse mt-3 mx-3">
             <thead className="bg-slate-400">
               <tr className=" text-xs text-white">
-                <th className="p-2 border-slate-300 border border-solid">No</th>
+                <th className="p-2 border-slate-300 border border-solid">Id</th>
                 <th className="p-2 border-slate-300 border border-solid">
-                  Judul Buku
+                  Judul
                 </th>
                 <th className="p-2 border-slate-300 border border-solid">
-                  Kode Buku
+                  Kode
                 </th>
                 <th className="p-2 border-slate-300 border border-solid">
                   Penerbit
@@ -87,16 +87,16 @@ function DataBukuAdmin() {
                   Bahasa
                 </th>
                 <th className="p-2 border-slate-300 border border-solid">
-                  Deskripsi fisik
+                  Deskripsi 
                 </th>
                 <th className="p-2 border-slate-300 border border-solid">
                   ISBN/ISSN
                 </th>
                 <th className="p-2 border-slate-300 border border-solid">
-                  Jumlah Buku
+                  Jumlah
                 </th>
                 <th className="p-2 border-slate-300 border border-solid">
-                  Ketersedian
+                  Tersedia
                 </th>
                 <th className=" border-slate-300 border border-solid">
                   Cover Buku
@@ -127,7 +127,9 @@ function DataBukuAdmin() {
                   <td className="align-top text-center border-[1px] border-slate-300 border-solid">
                     {bukuItem.lokasi_buku}
                   </td>
+                  <td className="align-top text-center border-[1px] border-slate-300 border-solid">
                   {bukuItem.isbn_issn}
+                  </td>
                   <td className="align-top text-center border-[1px] border-slate-300 border-solid">
                     {bukuItem.jumlah_buku}
                   </td>
