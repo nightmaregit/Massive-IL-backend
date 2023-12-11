@@ -1,4 +1,4 @@
-GET http://localhost:3103/data
+GET http://localhost:3102/data-buku/
 ###
 POST  http://localhost:3103/tambah-data
 Content-Type: application/json

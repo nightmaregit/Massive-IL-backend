@@ -6,32 +6,33 @@ import axios from "axios";
 
 function TambahBuku() {
   const navigate = useNavigate();
-  const [id, setId] = useState("");
-  const [judul, setJudul] = useState("");
-  const [kode, setKode] = useState("");
-  const [penerbit, setPenerbit] = useState("");
-  const [bahasa, setBahasa] = useState("");
-  const [deskripsi, setDeskripsi] = useState("");
+  const [id_buku, setId] = useState("");
+  const [judul_buku, setJudul] = useState("");
+  const [kode_buku, setKode] = useState("");
+  const [penerbit_buku, setPenerbit] = useState("");
+  const [bahasa_buku, setBahasa] = useState("");
+  const [lokasi_buku, setDeskripsi] = useState("");
   const [isbn_issn, setIsbn_issn] = useState("");
-  const [jumlah, setJumlah] = useState("");
-  const [tersedia, setTersedia] = useState("");
+  const [jumlah_buku, setJumlah] = useState("");
+  const [ketersediaan, setTersedia] = useState("");
+  const [cover_buku, setCover_bulu] = useState("");
   // const [isbn_issn, setIsbn_issn] = useState("");
-
 
   const SimpanBuku = async (e) => {
     e.preventDefault();
 
     try {
       await axios.post("http://localhost:3102/tambah-data", {
-        id,
-        judul,
-        kode,
-        penerbit,
-        bahasa,
-        deskripsi,
+        id_buku,
+        judul_buku,
+        kode_buku,
+        penerbit_buku,
+        bahasa_buku,
+        lokasi_buku,
         isbn_issn,
-        jumlah,
-        tersedia,
+        jumlah_buku,
+        ketersediaan,
+        cover_buku,
       });
       navigate("/admin/databuku"); // Redirect ke halaman list-admin setelah menyimpan data
     } catch (error) {
@@ -85,7 +86,7 @@ function TambahBuku() {
                       <input
                         className="min-w-full p-2 bg-slate-400"
                         type="text"
-                        value={id}
+                        value={id_buku}
                         onChange={(e) => setId(e.target.value)}
                         name="id"
                         id="id"
@@ -104,7 +105,7 @@ function TambahBuku() {
                       <input
                         className="min-w-full p-2 bg-slate-400"
                         type="text"
-                        value={judul}
+                        value={judul_buku}
                         onChange={(e) => setJudul(e.target.value)}
                         name="judul"
                         id="judul"
@@ -123,7 +124,7 @@ function TambahBuku() {
                       <input
                         className="min-w-full p-2 bg-slate-400"
                         type="text"
-                        value={kode}
+                        value={kode_buku}
                         onChange={(e) => setKode(e.target.value)}
                         name="kode"
                         id="kode"
@@ -142,7 +143,7 @@ function TambahBuku() {
                       <input
                         className="min-w-full p-2 bg-slate-400"
                         type="text"
-                        value={penerbit}
+                        value={penerbit_buku}
                         onChange={(e) => setPenerbit(e.target.value)}
                         name="penerbit"
                         id="penerbit"
@@ -161,7 +162,7 @@ function TambahBuku() {
                       <input
                         className="min-w-full p-2 bg-slate-400"
                         type="text"
-                        value={bahasa}
+                        value={bahasa_buku}
                         onChange={(e) => setBahasa(e.target.value)}
                         name="bahasa"
                         id="bahasa"
@@ -180,7 +181,7 @@ function TambahBuku() {
                       <input
                         className="min-w-full p-2 bg-slate-400"
                         type="text"
-                        value={deskripsi}
+                        value={lokasi_buku}
                         onChange={(e) => setDeskripsi(e.target.value)}
                         name="deskripsi"
                         id="deskripsi"
@@ -218,7 +219,7 @@ function TambahBuku() {
                       <input
                         className="min-w-full p-2 bg-slate-400"
                         type="text"
-                        value={jumlah}
+                        value={jumlah_buku}
                         onChange={(e) => setJumlah(e.target.value)}
                         name="judul"
                         id="judul"
@@ -237,8 +238,27 @@ function TambahBuku() {
                       <input
                         className="min-w-full p-2 bg-slate-400"
                         type="text"
-                        value={tersedia}
+                        value={ketersediaan}
                         onChange={(e) => setTersedia(e.target.value)}
+                        name="judul"
+                        id="judul"
+                        placeholder=""
+                      />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="p-1 w-[150px]">
+                      <div className="flex flex-row justify-between">
+                        <div>Cover Buku</div>
+                        <div>:</div>
+                      </div>
+                    </td>
+                    <td className="p-1">
+                      <input
+                        className="min-w-full p-2 bg-slate-400"
+                        type="text"
+                        value={cover_buku}
+                        onChange={(e) => setCover_bulu(e.target.value)}
                         name="judul"
                         id="judul"
                         placeholder=""

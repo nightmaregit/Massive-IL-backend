@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
+
 function DataBukuAdmin() {
   const navigate = useNavigate();
   const [buku, setBuku] = useState([]);
@@ -22,6 +23,15 @@ function DataBukuAdmin() {
       setBuku(response.data);
     } catch (error) {
       console.error("Error fetching user data:", error);
+    }
+  };
+
+  const deleteBuku = async (id) => {
+    try {
+      await axios.delete(`http://localhost:3102/delete-buku/${id}`);
+      getBuku();
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -100,32 +110,32 @@ function DataBukuAdmin() {
               {buku.map((bukuItem) => (
                 <tr key={bukuItem.id} className="text-sm font-normal text-15px">
                   <td className="align-top text-center border-[1px] border-slate-300 border-solid">
-                    {bukuItem.id}
+                    {bukuItem.id_buku}
                   </td>
                   <td className="align-top text-center border-[1px] border-slate-300 border-solid">
-                    {bukuItem.judul}
+                    {bukuItem.judul_buku}
                   </td>
                   <td className="align-top text-center border-[1px] border-slate-300 border-solid">
-                    {bukuItem.kode}
+                    {bukuItem.kode_buku}
                   </td>
                   <td className="align-top text-center border-[1px] border-slate-300 border-solid">
-                    {bukuItem.penerbit}
+                    {bukuItem.penerbit_buku}
                   </td>
                   <td className="align-top text-center border-[1px] border-slate-300 border-solid">
-                    {bukuItem.bahasa}
+                    {bukuItem.bahasa_buku}
                   </td>
                   <td className="align-top text-center border-[1px] border-slate-300 border-solid">
-                    {bukuItem.deskripsi}
+                    {bukuItem.lokasi_buku}
                   </td>
                   {bukuItem.isbn_issn}
                   <td className="align-top text-center border-[1px] border-slate-300 border-solid">
-                    {bukuItem.jumlah}
+                    {bukuItem.jumlah_buku}
                   </td>
                   <td className="align-top text-center border-[1px] border-slate-300 border-solid">
-                    {bukuItem.tersedia}
+                    {bukuItem.ketersediaan}
                   </td>
                   <td className="flex justify-center border-[1px] border-slate-300 border-solid ">
-                    <img className=" p-2 " alt="" />
+                    {bukuItem.cover_buku}
                   </td>
                   <td className=" border-[1px] border-slate-300 border-solid ">
                     <div className="flex justify-center gap-1">
@@ -138,7 +148,10 @@ function DataBukuAdmin() {
                         </button>
                       </div>
                       <div>
-                        <button className=" bg-red-500 p-1 text-black">
+                        <button
+                          onClick={() => deleteBuku(bukuItem.id)}
+                          className=" bg-red-500 p-1 text-black"
+                        >
                           <FaRegTrashCan className="text-[20px]" />
                         </button>
                       </div>
