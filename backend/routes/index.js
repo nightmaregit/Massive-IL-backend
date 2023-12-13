@@ -2,7 +2,8 @@ const express = require('express')
 const router =express.Router()
 const db = require('../data/database.js')
 
-router.get('/data-buku',(req, res)=>{
+// API DATA BUKU
+router.get('/data-buku/v1',(req, res)=>{
     const sql = "SELECT * FROM tb_buku"
     db.query(sql,(err, result)=>{
         if (err) throw err
@@ -11,16 +12,16 @@ router.get('/data-buku',(req, res)=>{
     })
 })
 
-router.get("/data-buku/:id", (req, res) => {
-  const id = req.params.id;
-  const sql = `SELECT * FROM tb_buku WHERE id = ${id}`;
+router.get("/data-buku/v1/:id_buku", (req, res) => {
+  const id = req.params.id_buku;
+  const sql = `SELECT * FROM tb_buku WHERE id_buku = ${id}`;
   db.query(sql, (err, fild) => {
     // console.log(fild);
     res.send(fild);
   });
 });
 
-router.post('/tambah-data', (req, res) => {
+router.post('/data-buku/tambah-buku/v1', (req, res) => {
   console.log(req.body);
   const id_buku= req.body.id_buku
   const judul_buku = req.body.judul_buku;
@@ -49,10 +50,10 @@ router.post('/tambah-data', (req, res) => {
 });
 });    
 
-router.delete("/delete-buku/:id", (req, res) => {
-  const id = req.params.id; // Menggunakan req.params.id untuk mendapatkan ID dari URL
+router.delete("/data-buku/delete-buku/v1/:id_buku", (req, res) => {
+  const id = req.params.id_buku; // Menggunakan req.params.id untuk mendapatkan ID dari URL
 
-  const sql = "DELETE FROM tb_buku WHERE id = ?";
+  const sql = "DELETE FROM tb_buku WHERE id_buku = ?";
   const values = [id];
 
   db.query(sql, values, (err, result) => {
@@ -66,6 +67,48 @@ router.delete("/delete-buku/:id", (req, res) => {
     console.log(result);
     res.status(200).json({ message: "Data berhasil dihapus dari database" });
   });
+})
+
+  // API DATA ANGGOTA
+  router.get('/data-anggota/v1',(req, res)=>{
+    const sql = "SELECT * FROM tb_anggota"
+    db.query(sql,(err, result)=>{
+        if (err) throw err
+       
+        res.send(result)
+    })
+})
+
+router.get("/data-anggota/v1/:id_anggota", (req, res) => {
+  const id = req.params.id_anggota;
+  const sql = `SELECT * FROM tb_anggota WHERE id_anggota = ${id}`;
+  db.query(sql, (err, fild) => {
+    // console.log(fild);
+    res.send(fild);
+  });
 });
+
+// API DATA PEMINJAMAN
+router.get('/data-peminjaman/v1',(req, res)=>{
+    const sql = "SELECT * FROM tb_peminjaman"
+    db.query(sql,(err, result)=>{
+        if (err) throw err
+       
+        res.send(result)
+    })
+})
+
+router.get("/data-peminjaman/v1/:id_peminjaman", (req, res) => {
+  const id = req.params.id_peminjaman;
+  const sql = `SELECT * FROM tb_peminjaman WHERE id_peminjaman = ${id}`;
+  db.query(sql, (err, fild) => {
+    // console.log(fild);
+    res.send(fild);
+  });
+});
+
+
+// API DATA PENGEMBALIN
+
 
 module.exports = router

@@ -2,72 +2,40 @@ import Sidebar_admin from "../components/sidebar_admin";
 import ProfilePicture from "../assets/image/profile.png";
 import { RiPencilFill } from "react-icons/ri";
 import { FaRegTrashCan } from "react-icons/fa6";
-import p9 from "../assets/image/buku-pendidikan/p9.png";
+// import p9 from "../assets/image/buku-pendidikan/p9.png";
 import { FaPlus } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 function DataBukuAdmin() {
   const navigate = useNavigate();
-  const items = [
-    {
-      id: 1,
-      judulBuku: "",
-      kodeBuku: "",
-      penerbit: "Tiga Serangkai",
-      bahasa: "Indonesia",
-      deskripsiFisik: "",
-      isbnIssn: "978-623-209-311-9",
-      jumlahBuku: "1",
-      ketersedian: "1",
-      coverBuku: p9,
-      hapus: 1,
-      ubah: 2,
-      pesanHapus: "Hapus",
-      pesanUbah: "Ubah",
-    },
-    {
-      id: 2,
-      judulBuku: "",
-      kodeBuku: "",
-      penerbit: "",
-      bahasa: "",
-      deskripsiFisik: "",
-      isbnIssn: "",
-      jumlahBuku: "",
-      ketersedian: "",
-      coverBuku: "",
-      hapus: 1,
-      ubah: 2,
-    },
-    {
-      id: 3,
-      judulBuku: "",
-      kodeBuku: "",
-      penerbit: "",
-      bahasa: "",
-      deskripsiFisik: "",
-      isbnIssn: "",
-      jumlahBuku: "",
-      ketersedian: "",
-      coverBuku: "",
-      hapus: 1,
-      ubah: 2,
-    },
-    {
-      id: 4,
-      judulBuku: "",
-      kodeBuku: "",
-      penerbit: "",
-      bahasa: "",
-      deskripsiFisik: "",
-      isbnIssn: "",
-      jumlahBuku: "",
-      ketersedian: "",
-      coverBuku: "",
-      hapus: 1,
-      ubah: 2,
-    },
-  ];
+  const [buku, setBuku] = useState([]);
+
+  useEffect(() => {
+    getBuku();
+  }, []);
+
+  const getBuku = async () => {
+    try {
+      const response = await axios.get("http://localhost:3102/data-buku/v1");
+      setBuku(response.data);
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+    }
+  };
+
+  const deleteBuku = async (id_buku) => {
+    try {
+      await axios.delete(
+        `http://localhost:3102/data-buku/delete-buku/v1/${id_buku}`
+      );
+      getBuku();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className="flex flex-row  ">
       <Sidebar_admin />
@@ -106,12 +74,12 @@ function DataBukuAdmin() {
           <table className=" p-2 border border-solid border-collapse mt-3 mx-3">
             <thead className="bg-slate-400">
               <tr className=" text-xs text-white">
-                <th className="p-2 border-slate-300 border border-solid">No</th>
+                <th className="p-2 border-slate-300 border border-solid">Id</th>
                 <th className="p-2 border-slate-300 border border-solid">
-                  Judul Buku
+                  Judul
                 </th>
                 <th className="p-2 border-slate-300 border border-solid">
-                  Kode Buku
+                  Kode
                 </th>
                 <th className="p-2 border-slate-300 border border-solid">
                   Penerbit
@@ -120,16 +88,16 @@ function DataBukuAdmin() {
                   Bahasa
                 </th>
                 <th className="p-2 border-slate-300 border border-solid">
-                  Deskripsi fisik
+                  Lokasi
                 </th>
                 <th className="p-2 border-slate-300 border border-solid">
                   ISBN/ISSN
                 </th>
                 <th className="p-2 border-slate-300 border border-solid">
-                  Jumlah Buku
+                  Jumlah
                 </th>
                 <th className="p-2 border-slate-300 border border-solid">
-                  Ketersedian
+                  Tersedia
                 </th>
                 <th className=" border-slate-300 border border-solid">
                   Cover Buku
@@ -140,40 +108,37 @@ function DataBukuAdmin() {
               </tr>
             </thead>
             <tbody className="[&>*:nth-child(odd)]:bg-white  [&>*:nth-child(even)]:bg-slate-300">
-              {items.map((item) => (
-                <tr
-                  key={item.bookingId}
-                  className="text-sm font-normal text-15px"
-                >
+              {buku.map((bukuItem) => (
+                <tr key={bukuItem.id} className="text-sm font-normal text-15px">
                   <td className="align-top text-center border-[1px] border-slate-300 border-solid">
-                    {item.id}
+                    {bukuItem.id_buku}
                   </td>
                   <td className="align-top text-center border-[1px] border-slate-300 border-solid">
-                    {item.judulBuku}
+                    {bukuItem.judul_buku}
                   </td>
                   <td className="align-top text-center border-[1px] border-slate-300 border-solid">
-                    {item.kodeBuku}
+                    {bukuItem.kode_buku}
                   </td>
                   <td className="align-top text-center border-[1px] border-slate-300 border-solid">
-                    {item.penerbit}
+                    {bukuItem.penerbit_buku}
                   </td>
                   <td className="align-top text-center border-[1px] border-slate-300 border-solid">
-                    {item.bahasa}
+                    {bukuItem.bahasa_buku}
                   </td>
                   <td className="align-top text-center border-[1px] border-slate-300 border-solid">
-                    {item.deskripsiFisik}
+                    {bukuItem.lokasi_buku}
                   </td>
                   <td className="align-top text-center border-[1px] border-slate-300 border-solid">
-                    {item.isbnIssn}
+                    {bukuItem.isbn_issn}
                   </td>
                   <td className="align-top text-center border-[1px] border-slate-300 border-solid">
-                    {item.jumlahBuku}
+                    {bukuItem.jumlah_buku}
                   </td>
                   <td className="align-top text-center border-[1px] border-slate-300 border-solid">
-                    {item.ketersedian}
+                    {bukuItem.ketersediaan}
                   </td>
                   <td className="flex justify-center border-[1px] border-slate-300 border-solid ">
-                    <img src={item.coverBuku} className=" p-2 " alt="" />
+                    {bukuItem.cover_buku}
                   </td>
                   <td className=" border-[1px] border-slate-300 border-solid ">
                     <div className="flex justify-center gap-1">
@@ -186,7 +151,10 @@ function DataBukuAdmin() {
                         </button>
                       </div>
                       <div>
-                        <button className=" bg-red-500 p-1 text-black">
+                        <button
+                          onClick={() => deleteBuku(bukuItem.id_buku)}
+                          className=" bg-red-500 p-1 text-black"
+                        >
                           <FaRegTrashCan className="text-[20px]" />
                         </button>
                       </div>
