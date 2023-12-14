@@ -1,50 +1,25 @@
 import ProfilePicture from "../assets/image/profile.png";
 
 import SidebarAdmin from "../components/sidebar_admin";
+import { useEffect, useState } from "react";
+import axios from "axios";
+
 
 const DataAnggota = () => {
-  const items = [
-    {
-      id: 1,
-      No: "1",
-      IdAnggota: "A001",
-      Nama: "Nabila A",
-      email: "Nabila123@gmail.com",
-      username: "  Nabila_aa",
-      NISN: "747845",
-      Kelas: "  10 Mipa 2",
-    },
-    {
-      id: 1,
-      No: "2",
-      IdAnggota: "A001",
-      Nama: "Nabila A",
-      email: "Nabila123@gmail.com",
-      username: "  Nabila_aa",
-      status: 1,
-      Kelas: "  10 Mipa 2",
-    },
-    {
-      id: 1,
-      No: "3",
-      IdAnggota: "A001",
-      Nama: "Nabila A",
-      email: "Nabila123@gmail.com",
-      username: "  Nabila_aa",
-      status: 1,
-      Kelas: "  10 Mipa 2",
-    },
-    {
-      id: 1,
-      No: "3",
-      IdAnggota: "A001",
-      Nama: "Nabila A",
-      email: "Nabila123@gmail.com",
-      username: "  Nabila_aa",
-      status: 1,
-      Kelas: "  10 Mipa 2",
-    },
-  ];
+  const [anggota, setAnggota] = useState([]);
+
+  useEffect(() => {
+    getAnggota();
+  }, []);
+
+  const getAnggota = async () => {
+    try {
+      const response = await axios.get("http://localhost:3102/data-anggota/v1");
+      setAnggota(response.data);
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+    }
+  };
 
   return (
     <div className="flex">
@@ -73,37 +48,33 @@ const DataAnggota = () => {
           <table className=" relative rounded-[50px] mt-5 max-w-screen-2xl">
             <thead className="bg-black/70">
               <tr className="text-sm font-normal text-white">
-                <th className="p-3">No</th>
                 <th className="p-3">Id Anggota</th>
                 <th className="p-3">Nama</th>
                 <th className="p-3">Email</th>
                 <th className="p-3">Username</th>
                 <th className="p-3">NISN</th>
-                <th className="p-3">Kelas</th>
+                <th className="p-3">Foto</th>
               </tr>
             </thead>
             <tbody className="[&>*:nth-child(odd)]:bg-[#D9D9D9]">
-              {items.map((item) => (
-                <tr key={item.No} className="text-sm font-normal text-15px">
-                  <td className="p-3 text-center border-gray-500 border-r">
-                    {item.No}
-                  </td>
+              {anggota.map((anggotaItem) => (
+                <tr key={anggotaItem.No} className="text-sm font-normal text-15px">
                   <td className="p-3 text-center border-gray-500 border-x">
-                    {item.IdAnggota}
+                    {anggotaItem.id_anggota}
                   </td>
                   <td className="p-3 text-center border-gray-500 border-r">
-                    {item.Nama}
+                    {anggotaItem.nama}
                   </td>
                   <td className="p-3 text-center border-gray-500 border-x">
-                    {item.email}
+                    {anggotaItem.email}
                   </td>
                   <td className="p-3 text-center border-gray-500 border-x">
-                    {item.username}
+                    {anggotaItem.nisn}
                   </td>
                   <td className="text-center border-gray-500 border-x">
-                    {item.Kelas}
+                    {anggotaItem.kelas}
                   </td>
-                  <td className="text-center">{item.Kelas}</td>
+                  <td className="text-center"><img src={anggotaItem.foto} alt="" /></td>
                 </tr>
               ))}
             </tbody>
