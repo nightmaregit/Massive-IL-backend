@@ -2,9 +2,41 @@
 import Reading from "../assets/Reading.png";
 import Logo from "../assets/Logo.png";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import axios from "axios";
+import Swal from "sweetalert2";
 
 function SignUp() {
   const navigate = useNavigate();
+
+  const [nama, setNama] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+
+
+  const coba = async (e) => {
+    e.preventDefault();
+ 
+
+    try {
+      await axios.post("http://localhost:3102/api/v1/register", {
+        nama,
+        email,
+        password,
+      });
+      Swal.fire({
+        icon: "success",
+        title: "Berhasil",
+    
+      });
+      console.log("coba liat")
+    } catch (error) {
+      console.error("Error saving book:", error);
+    }
+  };
+
+
   return (
     <div className="page-container">
       <div className="SignIn ">
@@ -34,7 +66,7 @@ function SignUp() {
           {/* form */}
           <div className="textbagian2 pb-[19px] ">Daftar</div>
           <div>
-            <form>
+            <form  onSubmit={coba}>
               <div className="flex-col ">
                 {/* masukan nama */}
                 <div className="pt-[0px]">
@@ -45,6 +77,8 @@ function SignUp() {
                         className="input-signin  "
                         type="text"
                         placeholder="Masukan Nama"
+                        value={nama}
+                        onChange={(e) => setNama(e.target.value)}
                       />
                     </div>
                   </label>
@@ -58,8 +92,10 @@ function SignUp() {
                     <div className="pt-[6px] ">
                       <input
                         className="input-signin  "
-                        type="text"
+                        type="email"
                         placeholder="Masukan Email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
                       />
                     </div>
                   </label>
@@ -73,8 +109,10 @@ function SignUp() {
                     <div className="pt-[6px] ">
                       <input
                         className="input-signin  "
-                        type="text"
+                        type="password"
                         placeholder="Masukan Kata Sandi"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
                       />
                     </div>
                   </label>
