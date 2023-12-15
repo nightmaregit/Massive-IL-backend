@@ -2,7 +2,6 @@ import Sidebar_admin from "../components/sidebar_admin";
 import ProfilePicture from "../assets/image/profile.png";
 import { RiPencilFill } from "react-icons/ri";
 import { FaRegTrashCan } from "react-icons/fa6";
-import p9 from "../assets/image/buku-pendidikan/p9.png";
 import { FaPlus } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 
@@ -11,31 +10,28 @@ function Administrator() {
   const items = [
     {
       id: 1,
-      judulBuku: "",
-      kodeBuku: "",
-      penerbit: "Tiga Serangkai",
-      bahasa: "Indonesia",
-      deskripsiFisik: "",
-      isbnIssn: "978-623-209-311-9",
-      jumlahBuku: "1",
-      ketersedian: "1",
-      coverBuku: p9,
+      Nama: "Muhammad",
+      Email: "der@gmail.com",
+      Username: "deftra",
+      Password: "12345678",
       hapus: 1,
       ubah: 2,
-      pesanHapus: "Hapus",
-      pesanUbah: "Ubah",
     },
     {
       id: 2,
-      judulBuku: "",
-      kodeBuku: "",
-      penerbit: "",
-      bahasa: "",
-      deskripsiFisik: "",
-      isbnIssn: "",
-      jumlahBuku: "",
-      ketersedian: "",
-      coverBuku: "",
+      Nama: "Deril",
+      Email: "der@gmail.com",
+      Username: "derftra",
+      Password: "12345678",
+      hapus: 1,
+      ubah: 2,
+    },
+    {
+      id: 2,
+      Nama: "Fitra",
+      Email: "der@gmail.com",
+      Username: "derftra",
+      Password: "12345678",
       hapus: 1,
       ubah: 2,
     },
@@ -67,7 +63,7 @@ function Administrator() {
           <div className="mx-3 pt-5 pb-5">
             <button
               className="text-3xl font-medium leading-normal flex p-1 px-2 cursor-pointer border rounded-md w-[341px] border-black items-center gap-2"
-              onClick={() => navigate("/admin/edit-akun-admin")}
+              onClick={() => navigate("/admin/tambah-akun-admin")}
             >
               <FaPlus className="w-5" /> <span>Tambah Akun</span>
             </button>
@@ -80,20 +76,18 @@ function Administrator() {
                     No
                   </th>
                   <th className="p-2 border-slate-300 border border-solid">
-                    Judul Buku
+                    Nama
                   </th>
                   <th className="p-2 border-slate-300 border border-solid">
-                    Kode Buku
+                    Email
                   </th>
                   <th className="p-2 border-slate-300 border border-solid">
-                    Penerbit
+                    Username
                   </th>
                   <th className="p-2 border-slate-300 border border-solid">
-                    Bahasa
+                    Password
                   </th>
-                  <th className="p-2 border-slate-300 border border-solid">
-                    Deskripsi fisik
-                  </th>
+
                   <th className="p-2 border-slate-300 border border-solid">
                     Aksi
                   </th>
@@ -109,26 +103,23 @@ function Administrator() {
                       {item.id}
                     </td>
                     <td className="align-top h-4 py-[9px] text-center border-[1px] border-slate-300 border-solid">
-                      {item.judulBuku}
+                      {item.Nama}
                     </td>
                     <td className="align-top h-4 py-[9px] text-center border-[1px] border-slate-300 border-solid">
-                      {item.kodeBuku}
+                      {item.Email}
                     </td>
                     <td className="align-top h-4 py-[9px] text-center border-[1px] border-slate-300 border-solid">
-                      {item.penerbit}
+                      {item.Username}
                     </td>
                     <td className="align-top h-4 py-[9px] text-center border-[1px] border-slate-300 border-solid">
-                      {item.bahasa}
-                    </td>
-                    <td className="align-top h-4 py-[9px] text-center border-[1px] border-slate-300 border-solid">
-                      {item.deskripsiFisik}
+                      {item.Password}
                     </td>
 
                     <td className=" border-[1px] border-slate-300 border-solid ">
                       <div className="flex justify-center gap-1">
                         <div>
                           <button
-                            onClick={() => navigate("/admin/databuku/editbuku")}
+                            onClick={() => navigate("/admin/edit-akun-admin")}
                             className=" bg-yellow-500 p-1 text-black"
                           >
                             <RiPencilFill className="text-[20px]" />

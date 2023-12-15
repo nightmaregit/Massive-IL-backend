@@ -2,7 +2,7 @@ import SidebarAdmin from "../components/sidebar_admin";
 import ProfilePicture from "../assets/image/profile.png";
 import { useNavigate } from "react-router-dom";
 
-const EditAkunAdmin = () => {
+const TambahAkunAdmin = () => {
   const navigate = useNavigate();
   return (
     <div className="relative w-full min-h-screen">
@@ -30,7 +30,7 @@ const EditAkunAdmin = () => {
           </div>
           <div className="pt-8 bg-white pb-[53px] rounded-b-[20px] px-6">
             <h1 className="text-3xl font-medium leading-normal ml-[30px] flex p-1 px-2 cursor-pointer">
-              <span>Edit Akun </span>
+              <span>Tambah Akun</span>
             </h1>
 
             <div className="px-[30px] mt-[35px] flex gap-[170px] lg:justify-normal xl:justify-around">
@@ -103,4 +103,4 @@ const EditAkunAdmin = () => {
   );
 };
 
-export default EditAkunAdmin;
+export default TambahAkunAdmin;

@@ -11,13 +11,13 @@ const Profil = () => {
       <Sidebar />
 
       <div className="flex flex-col w-full mb-96 ">
-        <div className="bg-masuk h-16 flex justify-end">
-          <div className=" text-white flex  items-center pr-5  gap-[30px]">
+        <div className=" h-16 flex justify-end">
+          <div className=" text-black flex  items-center pr-5  gap-[30px]">
             <div>
               <h1 className="font-semibold text-sm leading-normal">
                 Nabila A.
               </h1>
-              <span>Siswa</span>
+              <span className="text-slate-300">Siswa</span>
             </div>
 
             {/* Ini dibawah ntar diisi jd Image profile picturenya */}

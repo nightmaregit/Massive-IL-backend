@@ -3,8 +3,10 @@ import Background from "../assets/image/akun-bg.jpg";
 import ProfilePicture from "../assets/image/profile.png";
 import UploadButton from "../assets/image/UploadButton.png";
 import EditIcon from "../assets/icons/Edit.svg?react";
+import { useNavigate } from "react-router-dom";
 
 const Akun = () => {
+  const navigate = useNavigate();
   return (
     <>
       <div className="relative h-full min-h-screen w-full bg-[#FAFBFC]">
@@ -50,7 +52,16 @@ const Akun = () => {
             <h1 className="font-semibold leading-9 tracking-[0.259px] text-4xl">
               Akun
             </h1>
+
             <div className="bg-white rounded-2xl w-full flex flex-col gap-8 px-6 py-8 shadow-md">
+              <div className="text-left">
+                <div className="text-left">
+                  <span className="font-normal text-base font-Montserrat opacity-75">
+                    Id Anggota
+                  </span>
+                  <p className="text-xl leading-normal font-semibold">A001</p>
+                </div>
+              </div>
               <div className="text-left">
                 <span className="font-normal text-base font-Montserrat opacity-75">
                   Nama Lengkap
@@ -83,15 +94,18 @@ const Akun = () => {
               </div>
               <div className="text-left">
                 <span className="font-normal text-base font-Montserrat opacity-75">
-                  Tempat/Tanggal Lahir
+                  Kelas
                 </span>
                 <p className="text-xl leading-normal font-semibold">
-                  01-01-1992
+                  10 Mipa 2
                 </p>
               </div>
 
               <div className="flex justify-end ">
-                <button className="text-xl leading-normal font-medium flex items-center justify-center gap-1 px-4 py-2 border border-solid rounded-[4px] border-[#0C6FD1] w-[108px] mr-[127px]">
+                <button
+                  className="text-xl leading-normal font-medium flex items-center justify-center gap-1 px-4 py-2 border border-solid rounded-[4px] border-[#0C6FD1] w-[108px] mr-[127px]"
+                  onClick={() => navigate("/profil/akun/edit-akun")}
+                >
                   <EditIcon />
                   <span className="">Edit</span>
                 </button>
