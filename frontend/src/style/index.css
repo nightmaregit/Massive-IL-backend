@@ -31,7 +31,7 @@
   }
 
   .input-signin{
-    @apply  w-[348px] h-[51px] bg-[#0C356A] rounded-[5px] px-[22px]   placeholder-white placeholder-opacity-25 text-[15px] font-['Inter',sans-serif] font-medium ;
+    @apply  w-[348px] h-[51px] bg-[#0C356A] rounded-[5px] px-[22px]  text-white placeholder-white placeholder-opacity-25 text-[15px] font-['Inter',sans-serif] font-medium ;
   }
 
   .buttonMasuk-signin{

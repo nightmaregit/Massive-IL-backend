@@ -48,6 +48,7 @@ const DataAnggota = () => {
           <table className=" relative rounded-[50px] mt-5 max-w-screen-2xl">
             <thead className="bg-black/70">
               <tr className="text-sm font-normal text-white">
+              <th className="p-3">No</th>
                 <th className="p-3">Id Anggota</th>
                 <th className="p-3">Nama</th>
                 <th className="p-3">Email</th>
@@ -58,7 +59,10 @@ const DataAnggota = () => {
             </thead>
             <tbody className="[&>*:nth-child(odd)]:bg-[#D9D9D9]">
               {anggota.map((anggotaItem) => (
-                <tr key={anggotaItem.No} className="text-sm font-normal text-15px">
+                <tr key={anggotaItem.id} className="text-sm font-normal text-15px">
+                  <td className="p-3 text-center border-gray-500 border-x">
+                    1
+                  </td>
                   <td className="p-3 text-center border-gray-500 border-x">
                     {anggotaItem.id_anggota}
                   </td>

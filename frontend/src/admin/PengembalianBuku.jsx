@@ -1,29 +1,46 @@
 import ProfilePicture from "../assets/image/profile.png";
 import SidebarAdmin from "../components/sidebar_admin";
+import axios from "axios";
+import { useEffect, useState } from "react";
 
 const PengembalianBuku = () => {
-  const items = [
-    {
-      id: 1,
-      No: "1.",
-      IdAnggota: "A001",
-      KodeBuku: "F 813 SAI",
-      tanggalPinjam: "11-07-23",
-      tanggalKembali: "10-06-24",
-      status: 1,
-      statusMsg: "Sudah",
-    },
-    {
-      id: 1,
-      No: "2.",
-      IdAnggota: "A001",
-      KodeBuku: "U 330 END e 3",
-      tanggalPinjam: "11-07-23",
-      tanggalKembali: "10-06-24",
-      status: 2,
-      statusMsg: "Belum",
-    },
-  ];
+  // const items = [
+  //   {
+  //     id: 1,
+  //     No: "1.",
+  //     IdAnggota: "A001",
+  //     KodeBuku: "F 813 SAI",
+  //     tanggalPinjam: "11-07-23",
+  //     tanggalKembali: "10-06-24",
+  //     status: 1,
+  //     statusMsg: "Sudah",
+  //   },
+  //   {
+  //     id: 1,
+  //     No: "2.",
+  //     IdAnggota: "A001",
+  //     KodeBuku: "U 330 END e 3",
+  //     tanggalPinjam: "11-07-23",
+  //     tanggalKembali: "10-06-24",
+  //     status: 2,
+  //     statusMsg: "Belum",
+  //   },
+  // ];
+
+  const [pengembalian, setPengemabalian] = useState([]);
+
+  useEffect(() => {
+    getPengemabalian();
+  }, []);
+
+  const getPengemabalian = async () => {
+    try {
+      const response = await axios.get("http://localhost:3102/data-pengembalian/v1");
+      setPengemabalian(response.data);
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+    }
+  };
 
   return (
     <div className="flex">
@@ -64,24 +81,33 @@ const PengembalianBuku = () => {
               </tr>
             </thead>
             <tbody className="[&>*:nth-child(odd)]:bg-[#D9D9D9]">
-              {items.map((item) => (
-                <tr key={item.No} className="text-sm font-normal text-15px">
+              {pengembalian.map((pengembalianItem) => (
+                <tr key={pengembalianItem.id} className="text-sm font-normal text-15px">
                   <td className="p-3 text-center border-gray-500 border-r">
-                    {item.No}
+                    {pengembalianItem.id_pengembalian}
                   </td>
                   <td className="p-3 text-center border-gray-500 border-x">
-                    {item.IdAnggota}
+                    {pengembalianItem.id_anggota}
                   </td>
                   <td className="p-3 text-center border-gray-500 border-x">
-                    {item.KodeBuku}
+                    {pengembalianItem.kode_buku}
                   </td>
                   <td className="p-3 text-center border-gray-500 border-x">
-                    {item.tanggalPinjam}
+                    {pengembalianItem.tanggal_pinjam}
                   </td>
                   <td className="p-3 text-center border-gray-500 border-x">
-                    {item.tanggalKembali}
+                    {pengembalianItem.tanggal_kembali}
                   </td>
-                  <td
+                  <td className="p-3 text-center border-gray-500 ">
+                  <div className={ pengembalianItem.status === "Sudah" 
+                    ? "p-2 flex justify-center bg-green-500 text-center text-white font-normal tracking-[1.12px] text-sm text-15px"
+                    : pengembalianItem.status === "Belum" ? "p-2 flex justify-center bg-blue-500 text-center text-white font-normal tracking-[1.12px] text-sm text-15px"
+                    : "p-2 flex justify-center bg-red-500 text-center text-white font-normal tracking-[1.12px] text-sm text-15px"}>
+                    {pengembalianItem.status}
+                    </div>
+                  </td>
+
+                  {/* <td
                     className={
                       item.status === 1
                         ? "p-3 flex justify-center"
@@ -101,11 +127,11 @@ const PengembalianBuku = () => {
                     >
                       {item.statusMsg}
                     </span>
-                  </td>
+                  </td> */}
                 </tr>
               ))}
 
-              {[...Array(3)].map((_, idx) => (
+              {/* {[...Array(3)].map((_, idx) => (
                 <tr key={idx} className="text-sm font-normal text-15px">
                   <td className="p-3 text-center border-gray-500"></td>
                   <td className="p-3 text-center border-gray-500 border-x"></td>
@@ -116,7 +142,7 @@ const PengembalianBuku = () => {
                     <span className="h-9">&nbsp;</span>
                   </td>
                 </tr>
-              ))}
+              ))} */}
             </tbody>
           </table>
 

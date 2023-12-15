@@ -109,6 +109,13 @@ router.get("/data-peminjaman/v1/:id_peminjaman", (req, res) => {
 
 
 // API DATA PENGEMBALIN
-
+router.get('/data-pengembalian/v1',(req, res)=>{
+  const sql = "SELECT * FROM tb_pengembalian"
+  db.query(sql,(err, result)=>{
+      if (err) throw err
+     
+      res.send(result)
+  })
+})
 
 module.exports = router
