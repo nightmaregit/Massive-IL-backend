@@ -1,44 +1,68 @@
 import Sidebar_admin from "../components/sidebar_admin";
 import ProfilePicture from "../assets/image/profile.png";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 
 function TambahBuku() {
-  const [id_buku, setId] = useState("");
-  const [judul_buku, setJudul] = useState("");
-  const [kode_buku, setKode] = useState("");
-  const [penerbit_buku, setPenerbit] = useState("");
-  const [bahasa_buku, setBahasa] = useState("");
-  const [lokasi_buku, setDeskripsi] = useState("");
-  const [isbn_issn, setIsbn_issn] = useState("");
-  const [jumlah_buku, setJumlah] = useState("");
-  const [ketersediaan, setTersedia] = useState("");
-  const [cover_buku, setCover_bulu] = useState("");
-  // const [isbn_issn, setIsbn_issn] = useState("");
+  const [formData, setFormData] = useState({
+    id_buku:"",
+    judul_buku: "",
+    kode_buku: "",
+    penerbit_buku: "",
+    bahasa_buku: "",
+    lokasi_buku: "",
+    isbn_issn: "",
+    jumlah_buku: 0,
+    ketersediaan: "",
+    cover_buku: null,
+  });
 
-  const SimpanBuku = async (e) => {
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleFileChange = (e) => {
+    setFormData({
+      ...formData,
+      cover_buku: e.target.files[0],
+    });
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const apiUrl = "http://localhost:3102/api/buku";
+    const formDataApi = new FormData();
+
+    for (const key in formData) {
+      formDataApi.append(key, formData[key]);
+    }
+
     try {
-      await axios.post("http://localhost:3102/data-buku/tambah-buku/v1", {
-        id_buku,
-        judul_buku,
-        kode_buku,
-        penerbit_buku,
-        bahasa_buku,
-        lokasi_buku,
-        isbn_issn,
-        jumlah_buku,
-        ketersediaan,
-        cover_buku,
-      });
-      navigate("/admin/databuku"); // Redirect ke halaman list-admin setelah menyimpan data
+      await axios.post(apiUrl, formDataApi);
+      console.log("Data berhasil dikirim");
     } catch (error) {
-      console.error("Error saving book:", error);
+      console.error("Gagal mengirim data: ", error.message);
     }
   };
-  const navigate = useNavigate();
+
+  // const [id_buku, setId] = useState("");
+  // const [judul_buku, setJudul] = useState("");
+  // const [kode_buku, setKode] = useState("");
+  // const [penerbit_buku, setPenerbit] = useState("");
+  // const [bahasa_buku, setBahasa] = useState("");
+  // const [lokasi_buku, setDeskripsi] = useState("");
+  // const [isbn_issn, setIsbn_issn] = useState("");
+  // const [jumlah_buku, setJumlah] = useState("");
+  // const [ketersediaan, setTersedia] = useState("");
+  // const [cover_buku, setCover_buku] = useState("https://fakeimg.pl/360x200");
+  // const [saveCover, setSaveCover] = useState(null);
+  // // const [isbn_issn, setIsbn_issn] = useState("");
+
   return (
     <div className="flex flex-row  ">
       <Sidebar_admin />
@@ -62,7 +86,7 @@ function TambahBuku() {
           </div>
         </div>
         <div className="px-16 font-semibold text-3xl">Tambah Buku</div>
-        <form onSubmit={SimpanBuku} action="">
+        <form onSubmit={handleSubmit} action="">
           <div className="px-16 mb-5">
             <div className="pt-3">
               <table className="[&>*:nth-child(odd)]:bg-white min-w-full [&>*:nth-child(even)]:bg-slate-400">
@@ -86,11 +110,9 @@ function TambahBuku() {
                       <input
                         className="min-w-full p-2 bg-slate-400"
                         type="text"
-                        value={id_buku}
-                        onChange={(e) => setId(e.target.value)}
-                        name="id"
-                        id="id"
-                        placeholder=""
+                        name="id_buku"
+                        onChange={handleChange}
+                        required
                       />
                     </td>
                   </tr>
@@ -105,11 +127,9 @@ function TambahBuku() {
                       <input
                         className="min-w-full p-2 bg-slate-400"
                         type="text"
-                        value={judul_buku}
-                        onChange={(e) => setJudul(e.target.value)}
-                        name="judul"
-                        id="judul"
-                        placeholder=""
+                        name="judul_buku"
+                        onChange={handleChange}
+                        required
                       />
                     </td>
                   </tr>
@@ -124,11 +144,9 @@ function TambahBuku() {
                       <input
                         className="min-w-full p-2 bg-slate-400"
                         type="text"
-                        value={kode_buku}
-                        onChange={(e) => setKode(e.target.value)}
-                        name="kode"
-                        id="kode"
-                        placeholder=""
+                        name="kode_buku"
+                        onChange={handleChange}
+                        required
                       />
                     </td>
                   </tr>
@@ -143,11 +161,9 @@ function TambahBuku() {
                       <input
                         className="min-w-full p-2 bg-slate-400"
                         type="text"
-                        value={penerbit_buku}
-                        onChange={(e) => setPenerbit(e.target.value)}
-                        name="penerbit"
-                        id="penerbit"
-                        placeholder=""
+                        name="penerbit_buku"
+                        onChange={handleChange}
+                        required
                       />
                     </td>
                   </tr>
@@ -162,11 +178,9 @@ function TambahBuku() {
                       <input
                         className="min-w-full p-2 bg-slate-400"
                         type="text"
-                        value={bahasa_buku}
-                        onChange={(e) => setBahasa(e.target.value)}
-                        name="bahasa"
-                        id="bahasa"
-                        placeholder=""
+                        name="bahasa_buku"
+                        onChange={handleChange}
+                        required
                       />
                     </td>
                   </tr>
@@ -181,11 +195,9 @@ function TambahBuku() {
                       <input
                         className="min-w-full p-2 bg-slate-400"
                         type="text"
-                        value={lokasi_buku}
-                        onChange={(e) => setDeskripsi(e.target.value)}
-                        name="deskripsi"
-                        id="deskripsi"
-                        placeholder="desk"
+                        name="lokasi_buku"
+                        onChange={handleChange}
+                        required
                       />
                     </td>
                   </tr>
@@ -200,11 +212,9 @@ function TambahBuku() {
                       <input
                         className="min-w-full p-2 bg-slate-400"
                         type="text"
-                        value={isbn_issn}
-                        onChange={(e) => setIsbn_issn(e.target.value)}
-                        name=""
-                        id=""
-                        placeholder=""
+                        name="isbn_issn"
+                        onChange={handleChange}
+                        required
                       />
                     </td>
                   </tr>
@@ -218,12 +228,10 @@ function TambahBuku() {
                     <td className="p-1">
                       <input
                         className="min-w-full p-2 bg-slate-400"
-                        type="text"
-                        value={jumlah_buku}
-                        onChange={(e) => setJumlah(e.target.value)}
-                        name="judul"
-                        id="judul"
-                        placeholder=""
+                        type="number"
+                        name="jumlah_buku"
+                        onChange={handleChange}
+                        required
                       />
                     </td>
                   </tr>
@@ -238,11 +246,9 @@ function TambahBuku() {
                       <input
                         className="min-w-full p-2 bg-slate-400"
                         type="text"
-                        value={ketersediaan}
-                        onChange={(e) => setTersedia(e.target.value)}
-                        name="judul"
-                        id="judul"
-                        placeholder=""
+                        name="ketersediaan"
+                        onChange={handleChange}
+                        required
                       />
                     </td>
                   </tr>
@@ -256,14 +262,16 @@ function TambahBuku() {
                     <td className="p-1">
                       <input
                         className="min-w-full p-2 bg-slate-400"
-                        type="text"
-                        value={cover_buku}
-                        onChange={(e) => setCover_bulu(e.target.value)}
-                        name="judul"
-                        id="judul"
-                        placeholder=""
+                        type="file"
+                        name="cover_buku"
+                        onChange={handleFileChange}
+                        required
                       />
+                      {/* <img src={} alt="foto" /> */}
                     </td>
+                  </tr>
+                  <tr>
+                    {/* <td className="flex justify-center mx-auto"></td> */}
                   </tr>
                   {/* Tambahkan baris lain sesuai dengan kebutuhan */}
                 </tbody>
@@ -278,7 +286,7 @@ function TambahBuku() {
                       Simpan
                     </button>
                     <button
-                      onClick={() => navigate("/admin/databuku")}
+                      // onClick={() => navigate("/admin/databuku")}
                       className="bg-red-600 text-white font-medium w-[100px] rounded-md p-1"
                     >
                       Batal

@@ -10,29 +10,44 @@ import axios from "axios";
 
 function DataBukuAdmin() {
   const navigate = useNavigate();
-  const [buku, setBuku] = useState([]);
+
+  const [buku, setBooks] = useState([]);
 
   useEffect(() => {
-    getBuku();
-  }, []);
+    const fetchBooks = async () => {
+      try {
+        const response = await axios.get("http://localhost:3102/api/buku");
+        setBooks(response.data);
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    };
 
-  const getBuku = async () => {
-    try {
-      const response = await axios.get("http://localhost:3102/data-buku/v1");
-      setBuku(response.data);
-    } catch (error) {
-      console.error("Error fetching user data:", error);
-    }
-  };
+    fetchBooks();
+  }, []); // [] agar useEffect hanya dijalankan sekali pada saat mount
 
-  const deleteBuku = async (id_buku) => {
+  // const [buku, setBuku] = useState([]);
+
+  // useEffect(() => {
+  //   getBuku();
+  // }, []);
+
+  // const getBuku = async () => {
+  //   try {
+  //     const response = await axios.get("http://localhost:3102/data-buku/v1");
+  //     setBuku(response.data);
+  //   } catch (error) {
+  //     console.error("Error fetching user data:", error);
+  //   }
+  // };
+
+  const deleteBook = async (id_buku) => {
     try {
-      await axios.delete(
-        `http://localhost:3102/data-buku/delete-buku/v1/${id_buku}`
-      );
-      getBuku();
+      await axios.delete(`http://localhost:3102/api/buku/${id_buku}`);
+      // Jika penghapusan berhasil, perbarui daftar buku
+      setBooks(buku.filter((buku) => buku.id_buku !== id_buku));
     } catch (error) {
-      console.log(error);
+      console.error("Error deleting book:", error);
     }
   };
 
@@ -138,7 +153,12 @@ function DataBukuAdmin() {
                     {bukuItem.ketersediaan}
                   </td>
                   <td className="flex justify-center border-[1px] border-slate-300 border-solid ">
-                    {bukuItem.cover_buku}
+                    <img
+                      src={`http://localhost:3102/uploads/${bukuItem.cover_buku}`}
+                      className=" h-32 w-24"
+                      // alt={buku.judul_buku}
+                    />
+                    {/* {bukuItem.cover_buku} */}
                   </td>
                   <td className=" border-[1px] border-slate-300 border-solid ">
                     <div className="flex justify-center gap-1">
@@ -152,7 +172,7 @@ function DataBukuAdmin() {
                       </div>
                       <div>
                         <button
-                          onClick={() => deleteBuku(bukuItem.id_buku)}
+                          onClick={() => deleteBook(bukuItem.id_buku)}
                           className=" bg-red-500 p-1 text-black"
                         >
                           <FaRegTrashCan className="text-[20px]" />
