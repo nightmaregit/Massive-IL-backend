@@ -2,8 +2,8 @@ const express = require('express')
 const router =express.Router()
 const db = require('../data/database.js')
 const cors = require('cors')
+const { verify,petugasonly } = require("../controllers/auth");
 
-router.use(cors())
 
 
 const multer = require('multer');
@@ -42,7 +42,7 @@ const upload = multer({
 });
 
 // API untuk menyimpan data buku ke database
-router.post('/api/buku', upload.single('cover_buku'), (req, res) => {
+router.post('/api/buku', upload.single('cover_buku'),verify,petugasonly, (req, res) => {
   const {
     judul_buku,
     kode_buku,
@@ -171,7 +171,7 @@ router.delete("/api/buku/:id_buku", (req, res) => {
 })
 
   // API DATA ANGGOTA
-  router.get('/data-anggota/v1',(req, res)=>{
+  router.get('/data-anggota/v1',verify,petugasonly,(req, res)=>{
     const sql = "SELECT * FROM tb_anggota"
     db.query(sql,(err, result)=>{
         if (err) throw err
@@ -190,7 +190,7 @@ router.get("/data-anggota/v1/:id_anggota", (req, res) => {
 });
 
 // API DATA PEMINJAMAN
-router.get('/data-peminjaman/v1',(req, res)=>{
+router.get('/data-peminjaman/v1',verify,petugasonly,(req, res)=>{
     const sql = "SELECT * FROM tb_peminjaman"
     db.query(sql,(err, result)=>{
         if (err) throw err

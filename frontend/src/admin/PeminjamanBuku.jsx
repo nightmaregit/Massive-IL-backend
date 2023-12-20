@@ -5,6 +5,21 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 const PeminjamanBuku = () => {
+  const [user, setUser] = useState([]);
+
+  useEffect(() => {
+    getUser();
+  }, []);
+
+  const getUser = async () => {
+    try {
+      const response = await axios.get("http://localhost:3102/api/v1/me");
+      setUser(response.data);
+    } catch (error) {
+      navigate("/")
+      console.error("Error fetching user data:", error);
+    }
+  };
   // const items = [
   //   {
   //     id: 1,
@@ -60,10 +75,14 @@ const PeminjamanBuku = () => {
       <div className="flex flex-col w-full mb-96 ">
         <div className=" h-16 flex justify-end">
           <div className=" text-black flex  items-center pr-5  gap-[30px]">
-            <div>
-              <h1 className="font-semibold text-sm leading-normal">Betty</h1>
-              <span>Admin</span>
+          {user.map((userItem) => (
+            <div key={userItem.id}>
+              <h1 className="font-semibold text-sm leading-normal">
+              {userItem.nama}
+              </h1>
+              <span className={userItem.role === "anggota" ? navigate("/profil"):"text-slate-300 "}>{userItem.role}</span>
             </div>
+            ))}
 
             {/* Ini dibawah ntar diisi jd Image profile picturenya */}
             <div className="w-[45px] h-[45px] bg-white rounded-full">

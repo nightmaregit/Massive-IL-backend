@@ -1,8 +1,28 @@
 import Sidebar from "../components/Sidebar";
 import ProfilePicture from "../assets/image/profile.png";
 import { MdFavorite } from "react-icons/md";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Favorit = () => {
+  const navigate = useNavigate();
+  const [user, setUser] = useState([]);
+
+  useEffect(() => {
+    getUser();
+  }, []);
+
+  const getUser = async () => {
+    try {
+      const response = await axios.get("http://localhost:3102/api/v1/me");
+      setUser(response.data);
+    } catch (error) {
+      navigate("/")
+      console.error("Error fetching user data:", error);
+    }
+  };
+
   const items = [
     {
       id: 1,
@@ -123,12 +143,14 @@ const Favorit = () => {
       <div className="flex flex-col w-full">
         <div className=" h-16 flex justify-end">
           <div className=" text-black flex  items-center pr-5  gap-[30px]">
-            <div>
+          {user.map((userItem) => (
+            <div key={userItem.id}>
               <h1 className="font-semibold text-sm leading-normal">
-                Nabila A.
+              {userItem.nama}
               </h1>
-              <span className="text-slate-300">Siswa</span>
+              <span className="text-slate-300 ">{userItem.role}</span>
             </div>
+            ))}
 
             {/* Ini dibawah ntar diisi jd Image profile picturenya */}
             <div className="w-[45px] h-[45px] bg-white rounded-full">

@@ -28,7 +28,6 @@ import DataAnggota from "./admin/DataAnggota";
 import EditAkunAdmin from "./admin/EditAkunAdmin";
 import Administrator from "./admin/Administrator";
 import TambahAkunAdmin from "./admin/TambahAkunAdmin";
-
 // import Buku_cerpen from './pages/Buku_cerpen'
 // import Buku_komik from './pages/Buku_komik'
 function App() {

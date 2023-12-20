@@ -4,9 +4,28 @@ import { RiPencilFill } from "react-icons/ri";
 import { FaRegTrashCan } from "react-icons/fa6";
 import { FaPlus } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { useEffect, useState } from "react";
 
 function Administrator() {
   const navigate = useNavigate();
+  const [user, setUser] = useState([]);
+
+  useEffect(() => {
+    getUser();
+  }, []);
+
+  const getUser = async () => {
+    try {
+      const response = await axios.get("http://localhost:3102/api/v1/me");
+      setUser(response.data);
+    } catch (error) {
+      navigate("/")
+      console.error("Error fetching user data:", error);
+    }
+  };
+  
+  
   const items = [
     {
       id: 1,
@@ -43,10 +62,14 @@ function Administrator() {
       <div className="flex flex-col w-screen  ">
         <div className=" mb-3 h-16 flex justify-end">
           <div className=" text-black flex  items-center pr-5  gap-[30px]">
-            <div>
-              <h1 className="font-semibold text-sm leading-normal">Betty</h1>
-              <span className="text-slate-300 ">Admin</span>
+          {user.map((userItem) => (
+            <div key={userItem.id}>
+              <h1 className="font-semibold text-sm leading-normal">
+              {userItem.nama}
+              </h1>
+              <span className={userItem.role === "anggota" ? navigate("/profil"):"text-slate-300 "}>{userItem.role}</span>
             </div>
+            ))}
 
             {/* Ini dibawah ntar diisi jd Image profile picturenya */}
             <div className="w-[45px] h-[45px] bg-black rounded-full">

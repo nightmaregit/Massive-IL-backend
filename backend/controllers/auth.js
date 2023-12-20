@@ -167,10 +167,11 @@ async function petugasonly(req, res,next) {
     `,
       [v123,nama,email,email,role]
     );
+    
     if (!hah) return res.status(404).json({msg: "user tidak ditemukan "});
 
   //return res.status(200).json(hah[0].role);
-   if(hah[0].role !== "petugas") return res.status(403).json({msg: "Akses terlarang "});
+   if(hah[0].role !== "admin") return res.status(403).json({msg: "Akses terlarang "});
    next();
   
   } catch (error) {

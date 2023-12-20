@@ -1,12 +1,38 @@
-
 import Logo from "../assets/Logo.png";
 import google from "../assets/google.svg";
 import Never from "../assets/Never.png";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import axios from "axios";
+import Swal from "sweetalert2";
 
 const SignIn = () => {
   const navigate = useNavigate();
   let url ="/masuk/lupakatasandi";
+
+  
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const ngetes = async (e) => {
+    e.preventDefault();
+ 
+
+    try {
+      await axios.post("http://localhost:3102/api/v1/login", {
+        email,
+        password,
+      });
+      Swal.fire({
+        icon: "success",
+        title: "Berhasil",
+    
+      })
+      navigate("/admin/dashboard");
+    } catch (error) {
+      console.error("Error saving book:", error);
+    }
+  };
   return (
     <div className="page-container">
       <div className="SignIn ">
@@ -36,17 +62,22 @@ const SignIn = () => {
           </div>
 
           <div className="">
-            <form>
+            <form onSubmit={ngetes}>
               <div className="flex-col  ">
                 {/* masukan Email */}
                 <div className="pt-[15px] ">
-                  <label className="label-signin">
+                  <label  className="label-signin">
                     Email
                     <div className=" ">
                       <input
                         className="input-signin w-[370px]"
-                        type="text"
+                        type="email"
+                        name="email"
+                        id="email"
+                        autoComplete="on"
                         placeholder="Masukan Email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
                       />
                     </div>
                   </label>
@@ -60,8 +91,12 @@ const SignIn = () => {
                     <div className=" ">
                       <input
                         className="input-signin  w-[370px]"
-                        type="text"
+                        type="password"
                         placeholder="Masukan Kata Sandi"
+                        name="password"
+                        id="password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
                       />
                     </div>
                   </label>
@@ -71,17 +106,16 @@ const SignIn = () => {
                 {/* ingat saya lupa kata sandi */}
                 <div className="flex items-center mb-[29px] mt-[16px] w-full ">
                   <input
-                    id="default-checkbox "
+                    id="checkbox"
                     type="checkbox"
                     value=""
                     className="w-[18px] h-[18px] text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600 "
                   />
-                  <label
-                    htmlFor =" default-checkbox"
+                  <div
                     className=" w-1/2 ms-[10px] align-middle  font-semibold text-gray-900 dark:text-gray-300 text-[15px] font-['Inter',sans-serif]"
                   >
                     Ingat Saya
-                  </label>
+                  </div>
                   <a
                     className="text-indigo-700 font-semibold font['Inter'] text-right w-1/2 "
                     href={url}
@@ -94,7 +128,7 @@ const SignIn = () => {
                 {/* button daftar */}
                 <div className="">
                   <button
-                    onClick={() => navigate("/")}
+                    type="submit"
                     className="buttonDaftar-signin w-[370px]  m-0 p-0"
                   >
                     

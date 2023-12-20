@@ -11,6 +11,22 @@ import axios from "axios";
 function DataBukuAdmin() {
   const navigate = useNavigate();
 
+  const [user, setUser] = useState([]);
+
+  useEffect(() => {
+    getUser();
+  }, []);
+
+  const getUser = async () => {
+    try {
+      const response = await axios.get("http://localhost:3102/api/v1/me");
+      setUser(response.data);
+    } catch (error) {
+      navigate("/");
+      console.error("Error fetching user data:", error);
+    }
+  };
+
   const [buku, setBooks] = useState([]);
 
   useEffect(() => {
@@ -59,8 +75,14 @@ function DataBukuAdmin() {
         <div className=" mb-3 h-16 flex justify-end">
           <div className=" text-black flex  items-center pr-5  gap-[30px]">
             <div>
-              <h1 className="font-semibold text-sm leading-normal">Betty</h1>
-              <span className="text-slate-300 ">Admin</span>
+              {user.map((userItem) => (
+                <div key={userItem.id}>
+                  <h1 className="font-semibold text-sm leading-normal">
+                    {userItem.nama}
+                  </h1>
+                  <span className="text-slate-300 ">{userItem.role}</span>
+                </div>
+              ))}
             </div>
 
             {/* Ini dibawah ntar diisi jd Image profile picturenya */}

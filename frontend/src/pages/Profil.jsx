@@ -1,10 +1,26 @@
 import Sidebar from "../components/Sidebar";
 import ProfilePicture from "../assets/image/profile.png";
-
 import CalendarIcon from "../assets/icons/Calendar.svg?react";
 import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const Profil = () => {
+  const [user, setUser] = useState([]);
+
+  useEffect(() => {
+    getUser();
+  }, []);
+
+  const getUser = async () => {
+    try {
+      const response = await axios.get("http://localhost:3102/api/v1/me");
+      setUser(response.data);
+    } catch (error) {
+      navigate("/")
+      console.error("Error fetching user data:", error);
+    }
+  };
   const navigate = useNavigate();
   return (
     <div className="flex">
@@ -12,13 +28,16 @@ const Profil = () => {
 
       <div className="flex flex-col w-full mb-96 ">
         <div className=" h-16 flex justify-end">
+
           <div className=" text-black flex  items-center pr-5  gap-[30px]">
-            <div>
+          {user.map((userItem) => (
+            <div key={userItem.id}>
               <h1 className="font-semibold text-sm leading-normal">
-                Nabila A.
+              {userItem.nama}
               </h1>
-              <span className="text-slate-300">Siswa</span>
+              <span className="text-slate-300 ">{userItem.role}</span>
             </div>
+            ))}
 
             {/* Ini dibawah ntar diisi jd Image profile picturenya */}
             <div className="w-[45px] h-[45px] bg-white rounded-full">

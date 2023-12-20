@@ -8,6 +8,8 @@ import {
 } from "../assets/icons";
 import Logo from "../assets/logo-bright.png";
 import { useLocation } from "react-router-dom";
+import axios from "axios";
+import Swal from "sweetalert2";
 
 const Peminjaman = () => {
   const navigate = useNavigate();
@@ -15,6 +17,22 @@ const Peminjaman = () => {
   const { pathname } = lokasi;
   const muncul = pathname.split("/");
   console.log(muncul);
+
+  const logout = async () => {
+    try {
+      await axios.delete(
+        `http://localhost:3102/api/v1/logout`
+      );
+      Swal.fire({
+        icon: "success",
+        title: "Berhasil",
+    
+      })
+      navigate("/");
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const items = [
     {
@@ -47,13 +65,7 @@ const Peminjaman = () => {
       title: "Tentang Kami",
       url: "/tentang-kami",
       icon: <ChatIcon />,
-    },
-    {
-      id: 10,
-      title: "Keluar",
-      url: "/logout",
-      icon: <LeaveIcon />,
-    },
+    }
   ];
 
   return (
@@ -76,6 +88,9 @@ const Peminjaman = () => {
             <span>{item.title}</span>
           </div>
         ))}
+        <div onClick={() => logout()} className=" flex items-center px-6 py-3 justify-start gap-4 text-[18px] font-semibold cursor-pointer w-[299px] text-gray-200 hover:bg-[#FFF7E9] rounded-tl-full rounded-bl-full hover:text-[#0C356A] transition">
+          <span><LeaveIcon/> </span>logout
+        </div>
       </div>
     </div>
   );

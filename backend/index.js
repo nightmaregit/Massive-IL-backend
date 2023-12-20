@@ -48,7 +48,7 @@ app.use(bodyParser.json());
 app.use(router);
 app.use(route);
 
-app.use(session());
+
 
 //  store.sync();
 
