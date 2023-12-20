@@ -15,7 +15,7 @@ const Pendidikan = () => {
 
   const fetchData = () => {
     return axios
-      .get("http://localhost:3102/data-buku/v1")
+      .get("http://localhost:3102/api/buku")
       .then((response) => setData(response.data));
   };
 
@@ -52,10 +52,11 @@ const Pendidikan = () => {
               return (
                 <div key={index}>
                   <img
+                    src={`http://localhost:3102/uploads/${dataObj.cover_buku}`}
                     alt=""
                     className=" transition ease-in-out  hover:-translate-y-1 hover:scale-110  duration-300"
                   />
-                  <p>{dataObj.cover_buku}</p>
+                  <p>{dataObj.judul_buku}</p>
                 </div>
               );
             })}

@@ -45,7 +45,7 @@ const Buku_pendidikan = () => {
             <div key={index}>
               <img
                 src={`http://localhost:3102/uploads/${dataObj.cover_buku}`}
-                className=" transition ease-in-out  hover:-translate-y-1 hover:scale-110  duration-300"
+                className=" transition ease-in-out  hover:-translate-y-1 hover:scale-110  duration-300 h-56 w-40"
 
                 // alt={buku.judul_buku}
               />

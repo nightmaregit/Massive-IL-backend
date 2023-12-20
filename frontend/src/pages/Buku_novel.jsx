@@ -1,20 +1,22 @@
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Footer_putih from "../components/Footer";
-import Aksara from '../assets/image/Novel/Aksara.jpg'
-import Bumi_Manusia from '../assets/image/Novel/Bumi Manusia.jpg'
-import Cinta_Untuk_Perempuan_Yang_Tidak_Sempurna from '../assets/image/Novel/Cinta Untuk Perempuan Yang Tidak Sempurna.jpg'
-import Hujan_Tere_Liye from '../assets/image/Novel/Hujan-Tere Liye.jpg'
-import Jingga_Senja from '../assets/image/Novel/Jingga & Senja.jpg'
-import Lapar from '../assets/image/Novel/Lapar.jpg'
-import Perahu_Kertas from '../assets/image/Novel/Perahu Kertas.jpg'
-import Pulang_Tere_Liye from '../assets/image/Novel/Pulang_Tere Liye.jpg'
-import Raja_untuk_Ratu from '../assets/image/Novel/Raja untuk Ratu.jpg'
-import Rindu_Tere_Liye from '../assets/image/Novel/Rindu-Tere Liye.jpg'
-import Sekolah_Sambil_Petualangan from '../assets/image/Novel/Sekolah Sambil Petualangan.jpg'
-import Heartbroken_Heartbreaker from '../assets/image/Novel/The Heartbroken Heartbreaker.jpg'
+import axios from "axios";
+import { useState, useEffect } from "react";
 const Buku_pendidikan = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
+  const [data, setData] = useState([]);
+
+  const fetchData = () => {
+    return axios
+      .get("http://localhost:3102/api/buku")
+      .then((response) => setData(response.data));
+  };
+
+  useEffect(() => {
+    fetchData();
+  });
+
   return (
     <div>
       <Navbar />
@@ -38,116 +40,19 @@ const Buku_pendidikan = () => {
         </form>
       </div>
       <div className="grid grid-cols-6 px-10 mt-10 border border-masuk py-5 gap-6">
-        <div>
-          <img
-            onClick={() => navigate("#")}
-            src={Aksara}
-            alt=""
-            className="transition ease-in-out border border-masuk bg-blue-500 hover:-translate-y-1 hover:scale-110  duration-300"
-          />
-          <span>Manajemen Sumber Daya Manusia </span>
-        </div>
-        <div>
-          <img
-            onClick={() => navigate("#")}
-            src={Bumi_Manusia}
-            alt=""
-            className="transition ease-in-out border border-masuk bg-blue-500 hover:-translate-y-1 hover:scale-110  duration-300"
-          />
-          <span>Keperawatan Kesehatan komunitas</span>
-        </div>
-        <div>
-          <img
-            onClick={() => navigate("#")}
-            src={Cinta_Untuk_Perempuan_Yang_Tidak_Sempurna}
-            alt=""
-            className="transition ease-in-out border border-masuk bg-blue-500 hover:-translate-y-1 hover:scale-110  duration-300"
-          />
-          <span>Atomic Habits</span>
-        </div>
-        <div>
-          <img
-            onClick={() => navigate("#")}
-            src={Hujan_Tere_Liye}
-            alt=""
-            className="transition ease-in-out border border-masuk bg-blue-500 hover:-translate-y-1 hover:scale-110  duration-300"
-          />
-          <span>Panduan Pendidikan Anti Korupsi</span>
-        </div>
-        <div>
-          <img
-            onClick={() => navigate("#")}
-            src={Jingga_Senja}
-            alt=""
-            className="transition ease-in-out border border-masuk bg-blue-500 hover:-translate-y-1 hover:scale-110  duration-300"
-          />
-          <span>Modul Teknologi Informasi dan Komuniasi Kelas X</span>
-        </div>
-        <div>
-          <img
-            onClick={() => navigate("#")}
-            src={Lapar}
-            alt=""
-            className="transition ease-in-out border border-masuk bg-blue-500 hover:-translate-y-1 hover:scale-110  duration-300"
-          />
-          <span>Geografi SMA Kelas XI</span>
-        </div>
-        <div>
-          <img
-            onClick={() => navigate("#")}
-            src={Perahu_Kertas}
-            alt=""
-            className="transition ease-in-out border border-masuk bg-blue-500 hover:-translate-y-1 hover:scale-110  duration-300"
-          />
-          <span>Cerdas Cergas Berbahasa dan Bersastra Indonesia Kelas X</span>
-        </div>
-        <div>
-          <img
-            onClick={() => navigate("#")}
-            src={Pulang_Tere_Liye}
-            alt=""
-            className="transition ease-in-out border border-masuk bg-blue-500 hover:-translate-y-1 hover:scale-110  duration-300"
-          />
-          <span>Informatika SMA Kelas X</span>
-        </div>
-        <div>
-          <img
-            onClick={() =>
-              navigate("/koleksi/pendidikan/Buku-Siswa-Ekonomi-Kelas-XI-SMA")
-            }
-            src={Raja_untuk_Ratu}
-            alt=""
-            className="transition ease-in-out border border-masuk bg-blue-500 hover:-translate-y-1 hover:scale-110  duration-300"
-          />
-          <span>Buku Siswa Ekonomi Kelas XI SMA </span>
-        </div>
-        <div>
-          <img
-            onClick={() => navigate("")}
-            src={Rindu_Tere_Liye}
-            alt=""
-            className="transition ease-in-out border border-masuk bg-blue-500 hover:-translate-y-1 hover:scale-110  duration-300"
-          />
-          <span>Matematika Contextual Reaching and Learning </span>
-        </div>
-        <div>
-          <img
-            onClick={() => navigate("#")}
-            src={Sekolah_Sambil_Petualangan}
-            alt=""
-            className="transition ease-in-out border border-masuk bg-blue-500 hover:-translate-y-1 hover:scale-110  duration-300"
-          />
-          <span>Panduan Database</span>
-        </div>
-        <div>
-          <img
-            onClick={() => navigate("#")}
-            src={Heartbroken_Heartbreaker}
-            alt=""
-            className="transition ease-in-out border border-masuk bg-blue-500 hover:-translate-y-1 hover:scale-110  duration-300"
-          />
-          <span>Pendidikan Pancasila Sebuah Pelajaran Umum Untuk SMP/MTS</span>
-        </div>
+        {data.map((dataObj, index) => {
+          return (
+            <div key={index}>
+              <img
+                src={`http://localhost:3102/uploads/${dataObj.cover_buku}`}
+                className=" transition ease-in-out  hover:-translate-y-1 hover:scale-110  duration-300 h-56 w-40"
+
+                // alt={buku.judul_buku}
+              />
+              <span>{dataObj.judul_buku}</span>
+            </div>
+          );
+        })}
       </div>
       <Footer_putih />
     </div>
